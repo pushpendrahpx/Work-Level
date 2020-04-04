@@ -1,0 +1,55 @@
+let { app,express,mongoose } = require("./Imports");
+
+/* == Configuration File need not to be Public == */
+const config = require("./config.json");
+
+
+
+/* == Mongoose Connection == */
+mongoose.connect(config.MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true},()=>{
+    console.log("Connected to Mongo Database");
+    /* == Defining Companies Routes == */
+const {CompanyModel,EmployeeModel} = require("./Models/Companies");
+
+let Employee = new EmployeeModel({
+    name:"String",
+    phone:73586586294,
+    email:"String",
+    password:"String",
+    address:{
+        line1:'Employee 1',
+        line2:"String",
+        city:"String",
+        state:"String",
+    }
+})
+Employee.save();
+console.log(Employee._id)
+let Company = new CompanyModel({
+    name:"Google LLC",
+    phone:87598534,
+    email:"pushpendra.hpx2001@gmail.com",
+    address:"String String String String String String String String String String ",
+    admin:{
+        adminEmail:"String",
+        adminPassword:"String",
+    },
+    employees:
+        [
+           Employee._id
+        ]
+    
+});
+Company.save();
+
+console.log(Company);
+});
+
+
+/* == Defining PORT Number == */
+const port = process.env.PORT || 5000;
+
+
+app.listen(port,()=>{
+    console.log(`Server Running on PORT = ${port}`)
+})
