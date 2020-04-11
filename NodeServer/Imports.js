@@ -11,4 +11,4 @@ app.use(bodyParser.urlencoded({extended:true}))
 
 
 
-module.exports = {app,express,mongoose};
+module.exports = {app,express,mongoose,bodyParser};

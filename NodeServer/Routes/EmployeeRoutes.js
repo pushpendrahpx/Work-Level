@@ -47,4 +47,42 @@ router.post("/register",(req,res)=>{
     }
 })
 
+router.post('/login',(req,res)=>{
+    try{
+        let {email,password} = req.body;
+
+        // console.log(email,password);
+        if(email.length >0 && password.length >0){
+            const {EmployeeModel} = require("./../Models/Companies");
+            
+            EmployeeModel.findOne({email:email},(err,Employee)=>{
+                console.length(Employee)
+                if(err){
+                    throw "Some Error Found While Searching in Database"
+                }
+                if(password == Employee.password){
+                    console.log("Login Done with email = "+email + " and password = "+password)
+                    
+                    res.status(200).json({
+                        statusCode:200,
+                        message:"Login Successfull"
+                    })
+                }else{
+                    res.status(206).json({
+                        statusCode:206,
+                        message:"Password Entered Wrong"
+                    })
+                }
+            })
+        }else{
+            throw "Phone or Password is Missing"
+        }
+
+    }catch(e){
+        res.status(300).json({
+            statusCode:400,
+            message:e
+        })
+    }
+})
 module.exports = router;

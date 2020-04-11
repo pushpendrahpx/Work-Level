@@ -1,16 +1,17 @@
-let { app,express,mongoose } = require("./Imports");
+let { app,express,mongoose,bodyParser} = require("./Imports");
+const path = require("path")
 
 /* == Configuration File need not to be Public == */
 const config = require("./config.json");
 
-
+// To Accept JSON
 
 /* == Defining Companies Routes == */
 let CompanyRoutes = require("./Routes/CompanyRoutes");
 let EmployeeRoutes = require("./Routes/EmployeeRoutes");
 
-app.use('/employee/',EmployeeRoutes);
-app.use('/company/',CompanyRoutes);
+app.use('/api/employee/',EmployeeRoutes);
+app.use('/api/company/',CompanyRoutes);
 
 
 
