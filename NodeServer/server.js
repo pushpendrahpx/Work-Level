@@ -10,7 +10,7 @@ const config = require("./config.json");
 let CompanyRoutes = require("./Routes/CompanyRoutes");
 let EmployeeRoutes = require("./Routes/EmployeeRoutes");
 
-app.use('/api/employee/',EmployeeRoutes);
+app.use('/api/Employee/',EmployeeRoutes);
 app.use('/api/company/',CompanyRoutes);
 
 

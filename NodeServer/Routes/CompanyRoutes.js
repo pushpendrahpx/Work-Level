@@ -75,7 +75,8 @@ router.post('/login',(req,res)=>{
                     
                     res.status(200).json({
                         statusCode:200,
-                        message:"Login Successfull"
+                        message:"Login Successfull",
+                        Company:Company
                     })
                 }else{
                     res.status(206).json({

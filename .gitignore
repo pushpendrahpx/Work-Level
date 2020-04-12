@@ -5,5 +5,5 @@
 /src
 /NodeServer/build
 /reactapp/build
-/reduxapp
-/reduxdemo
+/reduxapp/
+/reduxdemo/node_modules
