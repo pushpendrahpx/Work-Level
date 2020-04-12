@@ -44,14 +44,13 @@ export default class Home extends Component{
                     {/* Container Block */}
                     <div className='columns'>
                         <div className='column is-9'>
-                            <div className='box'>
                                 
                                     <Switch>
                                         <Route path='/home/' exact component={HomeCentral} />
                                         <Route path='/home/add/employees' component={HomeAddEmployees} />
                                     </Switch>
                                 
-                            </div>
+                           
                         </div>
                         <div className='column is-3'>
                             <div className='box'>

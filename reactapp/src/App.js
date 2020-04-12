@@ -5,6 +5,7 @@ import Home from './Pages/Home';
 import { BrowserRouter, Switch,Route } from 'react-router-dom'
 import Landing from './Pages/Landing';
 import Register from './Pages/Register';
+import Profile from './Pages/Employee/Profile';
 class App extends Component {
   render(){
     return (
@@ -16,6 +17,7 @@ class App extends Component {
             
             <Route path='/register' component={Register} />
             <Route path='/home' component={Home} />
+            <Route path='/employee/:email' component={Profile} />
           </Switch>
         </BrowserRouter>
       </div>

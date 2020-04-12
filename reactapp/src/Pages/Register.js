@@ -44,7 +44,8 @@ export default class Register extends Component {
             }
         }
         let d = await this.makeAPIrequest(url,data);
-        
+        alert(d.message);
+        window.location.href= '/'
         
     }
 
@@ -68,7 +69,7 @@ export default class Register extends Component {
                 <div id='Form' style={{margin:'10px',padding:"20px"}}>
                     <div class="field">
                     <div class="control">
-                        <input class="input" type="text" placeholder="Enter your Company name" name='name' value='Facebook LLC' />
+                        <input class="input" type="text" placeholder="Enter your Company name" name='name' />
                     </div>
                     </div>
                     {/* Phone */}
@@ -109,7 +110,7 @@ export default class Register extends Component {
                     {/* Password */}
                     <div class="field">
                         <div class="control">
-                            <input class="input" type="password" placeholder="Enter your Admin Password" name='password' value='Password' />
+                            <input class="input" type="password" placeholder="Enter your Admin Password" name='password' />
                         </div>
                     </div>
                     <label style={{fontSize:'20px',fontWeight:"400"}}>Address</label>

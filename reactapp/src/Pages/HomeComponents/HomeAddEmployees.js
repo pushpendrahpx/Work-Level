@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 class HomeAddEmployees extends Component {
  
-
+  
     makeAPIrequest = async (url,data)=>{
         let response = await fetch(url,{
             method:"POST",
@@ -17,7 +17,7 @@ class HomeAddEmployees extends Component {
    }
 
 
-    addEmployee = (e)=>{
+    addEmployee = async (e)=>{
         e.preventDefault();
         let {name,phone,email,password,line1,line2,city,state,country} = e.target;
         console.log()
@@ -36,12 +36,15 @@ class HomeAddEmployees extends Component {
             }
         }
         
-            let response = this.makeAPIrequest(url,data);
+            let response = await this.makeAPIrequest(url,data);
             console.log(response)
-
+            alert(response.statusCode+" Employee Registered")
+            
+        window.location.href= '/'
     }
 
     render() {
+        
         return (
             <div className='columns'>
                 <div className='column is-3'></div>
@@ -102,19 +105,19 @@ class HomeAddEmployees extends Component {
                         <div class="field">
                             
                             <div class="control">
-                                <input class="input" type="text" placeholder=" Company Address Line1" name='line1' />
+                                <input class="input" type="text" placeholder=" Company Address Line1" name='line1' value='B-30 shivam' />
                             </div>
                         </div>
                         <div class="field">
                             <div class="control">
-                                <input class="input" type="text" placeholder=" Company Address Line2" name='line2' />
+                                <input class="input" type="text" placeholder=" Company Address Line2" name='line2'  value='B-30 shivam' />
                             </div>
                         </div>
                         <div className='columns'>
                             <div className='column'>
                                 <div class="field">
                                     <div class="control">
-                                        <input class="input" type="text" placeholder="Enter City" name='city' />
+                                        <input class="input" type="text" placeholder="Enter City" name='city' value='B-30 shivam'  />
                                     </div>
                                 </div>
                             </div>
@@ -122,7 +125,7 @@ class HomeAddEmployees extends Component {
                             <div className='column'>
                                 <div class="field">
                                     <div class="control">
-                                        <input class="input" type="text" placeholder="Enter your State" name='state'/>
+                                        <input class="input" type="text" placeholder="Enter your State" name='state' value='B-30 shivam' />
                                     </div>
                                 </div>
                             </div>
@@ -130,7 +133,7 @@ class HomeAddEmployees extends Component {
                             <div className='column'>
                                 <div class="field">
                                     <div class="control">
-                                        <input class="input" type="text" placeholder="Enter your Country" name='country' />
+                                        <input class="input" type="text" placeholder="Enter your Country" name='country' value='B-30 shivam'  />
                                     </div>
                                 </div>
                             </div>

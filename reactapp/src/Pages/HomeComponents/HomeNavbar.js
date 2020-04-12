@@ -1,5 +1,13 @@
 import React from 'react'
+let logout = ()=>{
+  localStorage.removeItem("CompanyDetails");
+  localStorage.setItem("isLoggedIn","false")
+  window.location.href= '/';
+}
 export default function HomeNavbar(){
+
+
+    
     return <nav class="navbar is-dark">
     <div class="navbar-brand">
       <a class="navbar-item" style={{
@@ -29,7 +37,7 @@ export default function HomeNavbar(){
           <a className='navbar-item'>Employees</a>
           <a className='navbar-item'>Settings</a>
           <a className='navbar-item'>
-            <button className='button is-danger'>Logout</button>
+            <button className='button is-danger' onClick={logout}>Logout</button>
           </a>
       </div>
     </div>

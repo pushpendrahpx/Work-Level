@@ -32,7 +32,10 @@ router.post("/register",(req,res)=>{
                                     country:address.country
                                 }
                             });
-                            Employee.save(()=>{
+                            Employee.save((err,cons)=>{
+                                if(err){
+                                    res.status(300).json(err)
+                                }
                                 res.status(200).json({
                                     statusCode:200,
                                     message:"User Registered as Normal Employee, but Need to join Company"
@@ -91,6 +94,51 @@ router.post('/login',(req,res)=>{
         res.status(300).json({
             statusCode:400,
             message:e
+        })
+    }
+})
+
+router.post('/search/:query',(req,res)=>{
+    let { query } = req.params;
+    if(query.length > 0){
+        
+        const {EmployeeModel} = require("./../Models/Companies");
+        var regexQuery = {
+            name: new RegExp(query, 'i')
+          }
+        EmployeeModel.find(regexQuery,{password:0,_id:0,__v:0}).limit(20).exec((err,docs)=>{
+            
+            res.status(200).json(docs)
+        })
+
+    }else{
+        res.status(206).json({
+            statusCode:206,
+            message:"Query Cannot be Empty"
+        })
+    }
+})
+
+router.post('/:email',(req,res)=>{
+    let {email} = req.params;
+
+    if(email.length > 0){
+        const {EmployeeModel} = require("./../Models/Companies");
+        EmployeeModel.findOne({email:email},{password:0,_id:0},(err,Employee)=>{
+            if(err){
+                res.status(206).json({
+                    statusCode:206,
+                    error:"Some Error Found in During Quering"
+                })
+            }else{
+                
+                res.status(200).json(Employee)
+            }
+        })
+    }else{
+        re.status(206).json({
+            statusCode:206,
+            error:"Email Must be Greater than 0"
         })
     }
 })
