@@ -38,10 +38,10 @@ export default class Login extends Component{
         let url = 'http://localhost:5000/api/company/login';
 
         let response = await this.makeAPIrequest(url,{email:email.value,password:password.value});
-        
-        if(response.statusCode == 200){
+        console.log(response)
+        if(response.statusCode === 200){
             localStorage.setItem("isLoggedIn","true");
-        
+            localStorage.setItem("CompanyDetails",JSON.stringify(response.Company))
             this.setState({isLoggedIn:true});
         }
         this.setState({isLoading:false})
@@ -56,7 +56,7 @@ export default class Login extends Component{
         let url = 'http://localhost:5000/api/employee/login';
 
         let response = this.makeAPIrequest(url,{email:email.value,password:password.value});
-        if(response.statusCode == 200){
+        if(response.statusCode === 200){
             this.setState({isLoggedIn:true});
         }
 

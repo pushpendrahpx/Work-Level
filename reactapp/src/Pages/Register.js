@@ -159,9 +159,6 @@ export default class Register extends Component {
             </article>
             </form>
         </div>
-        <div className='column'>
-
-        </div>
     </div>;
         }
     }

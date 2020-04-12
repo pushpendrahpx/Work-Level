@@ -1,12 +1,44 @@
 import React, { Component } from 'react'
 
 class HomeAddEmployees extends Component {
-    constructor(props) {
-        super(props)
+ 
 
-        this.state = {
-                 
+    makeAPIrequest = async (url,data)=>{
+        let response = await fetch(url,{
+            method:"POST",
+            headers:{
+                'content-type':'application/json'
+            },
+            body:JSON.stringify(data)
+        });
+        // return response;
+        return await response.json();
+        
+   }
+
+
+    addEmployee = (e)=>{
+        e.preventDefault();
+        let {name,phone,email,password,line1,line2,city,state,country} = e.target;
+        console.log()
+        let url = 'http://localhost:5000/api/Employee/register';
+        let data = {
+            name:name.value,
+            phone:phone.value,
+            email:email.value,
+            password:password.value,
+            address:{
+                line1:line1.value,
+                line2:line2.value,
+                city:city.value,
+                state:state.value,
+                country:country.value
+            }
         }
+        
+            let response = this.makeAPIrequest(url,data);
+            console.log(response)
+
     }
 
     render() {
@@ -14,7 +46,7 @@ class HomeAddEmployees extends Component {
             <div className='columns'>
                 <div className='column is-3'></div>
                 <div className='column is-6'>
-                    <form onSubmit={this.UserForm} style={{padding:"20px"}}>
+                    <form onSubmit={this.addEmployee} style={{padding:"20px"}}>
                 <article class="panel is-link"> 
                     <p class="panel-heading">
                         Add Employee
@@ -63,26 +95,26 @@ class HomeAddEmployees extends Component {
                         {/* Password */}
                         <div class="field">
                             <div class="control">
-                                <input class="input" type="password" placeholder="Enter your Employee Password" name='password' value='Password' />
+                                <input class="input" type="password" placeholder="Enter your Employee Password" name='password' />
                             </div>
                         </div>
                         <label style={{fontSize:'20px',fontWeight:"400"}}>Address</label>
                         <div class="field">
                             
                             <div class="control">
-                                <input class="input" type="text" placeholder=" Company Address Line1" name='line1' value='B-30 Shivam Society' />
+                                <input class="input" type="text" placeholder=" Company Address Line1" name='line1' />
                             </div>
                         </div>
                         <div class="field">
                             <div class="control">
-                                <input class="input" type="text" placeholder=" Company Address Line2" name='line2' value='Near Jambuva Jakat Naka Makarpura' />
+                                <input class="input" type="text" placeholder=" Company Address Line2" name='line2' />
                             </div>
                         </div>
                         <div className='columns'>
                             <div className='column'>
                                 <div class="field">
                                     <div class="control">
-                                        <input class="input" type="text" placeholder="Enter City" name='city' value='Vadodata' />
+                                        <input class="input" type="text" placeholder="Enter City" name='city' />
                                     </div>
                                 </div>
                             </div>
@@ -90,7 +122,7 @@ class HomeAddEmployees extends Component {
                             <div className='column'>
                                 <div class="field">
                                     <div class="control">
-                                        <input class="input" type="text" placeholder="Enter your State" name='state' value='Gujrata' />
+                                        <input class="input" type="text" placeholder="Enter your State" name='state'/>
                                     </div>
                                 </div>
                             </div>
@@ -98,7 +130,7 @@ class HomeAddEmployees extends Component {
                             <div className='column'>
                                 <div class="field">
                                     <div class="control">
-                                        <input class="input" type="text" placeholder="Enter your Country" name='country' value="India" />
+                                        <input class="input" type="text" placeholder="Enter your Country" name='country' />
                                     </div>
                                 </div>
                             </div>
