@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import SearchEmployee from './SearchEmployee'
+import AssignWork from '../Work/AssignWork'
 
 class HomeCentral extends Component {
     constructor(props) {
@@ -18,12 +19,7 @@ class HomeCentral extends Component {
             <SearchEmployee />
     </div>
     <div class="tile is-parent">
-      <article class="tile is-child notification is-danger">
-        <p class="title">Wide tile</p>
-        <p class="subtitle">Aligned with the right tile</p>
-        <div class="content">
-        </div>
-      </article>
+            <AssignWork />
     </div>
   </div>
   <div class="tile is-parent">

@@ -1,4 +1,4 @@
-let { app,express,mongoose,bodyParser} = require("./Imports");
+let { app,express,mongoose,io,http} = require("./Imports");
 const path = require("path")
 
 /* == Configuration File need not to be Public == */
@@ -12,7 +12,13 @@ let EmployeeRoutes = require("./Routes/EmployeeRoutes");
 
 app.use('/api/Employee/',EmployeeRoutes);
 app.use('/api/company/',CompanyRoutes);
-
+io.set('origins','http://localhost:3000')
+io.on('connection', function(socket){
+    console.log('a user connected');
+    socket.on('logged',(data)=>{
+        console.log(data)
+    })
+  });
 
 
 /* == Mongoose Connection == */
@@ -25,7 +31,7 @@ mongoose.connect(config.MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology:
 const port = process.env.PORT || 5000;
 
 
-app.listen(port,()=>{
+http.listen(port,()=>{
     console.log(`Server Running on PORT = ${port}`)
 })
 

@@ -99,8 +99,8 @@ router.post('/login',(req,res)=>{
 router.post('/add/Employee/:CompanyID',(req,res)=>{
     try{
         let { CompanyID } = req.params;
-        let { phone,_id } = req.body;
-        if(phone || _id){
+        let {_id } = req.body;
+        if(_id.length > 0){
             const { EmployeeModel,CompanyModel } = require("./../Models/Companies");
             EmployeeModel.findOne({_id:_id},(err,Employee)=>{
                 if(err){
@@ -109,11 +109,39 @@ router.post('/add/Employee/:CompanyID',(req,res)=>{
                     });
                 }
                 
-                CompanyModel.findOne({_id:CompanyID},(err,docs)=>{
-                    console.log(docs)
-                    docs.employees.push(Employee._id)
+                CompanyModel.findOne({_id:CompanyID},{admin:0},(err,docs)=>{
+                    if(err){
+                        res.status(206).json({statusCode:206,message:"Unable to Find Company"})
+                    }else{
+                        // console.log(docs)
+                    if(docs.employees.includes(Employee._id)){
+                        res.status(202).json({
+                            statusCode:202,
+                            message:"Employee Already Registered in Company"
+                        })
+                    }else{
+                        docs.employees.push(Employee._id)
+                    
+                        docs.save((err,docs)=>{
+                            if(err){
+                                res.status(206).json({
+                                    statusCode:206,
+                                    message:"Some Error During Upadate"
+                                })
+                            }else{
+                                res.status(200).json({
+                                    statusCode:200,
+                                    message:"Employee Added",
+                                    Company:docs
+                                })
+                            }
+                        });
+                    }
+                    }
+                    
 
-                    docs.save();
+                    
+
                 })
             })
         }else{
@@ -125,5 +153,40 @@ router.post('/add/Employee/:CompanyID',(req,res)=>{
         res.status(400).json({e})
     }
 });
+
+router.post('/getAllEmployees/:CompanyID',(req,res)=>{
+    try{
+        let { CompanyID } = req.params;
+        let employees = [];
+
+        if(CompanyID.length > 0){
+            const {EmployeeModel,CompanyModel} = require("./../Models/Companies");
+            CompanyModel.findOne({_id:CompanyID},(err,Company)=>{
+                if(err){
+                    res.status(206).json({
+                        statusCode:206,
+                        error:"Company Failed to get from DB"
+                    })
+                }else{
+
+                    Company.employees.map(e=>{
+                        EmployeeModel.findOne({_id:e._id},(err,docs)=>{
+                            employees.push(docs)
+                        })
+                    });
+                    
+                }
+            })
+        }else{
+            res.status(206).json({
+                statusCode:206,
+                error:"Company ID must be greater than 0"
+            })
+        }
+
+    }catch(e){
+        res.status(400).json(e)
+    }
+})
 
 module.exports = router;

@@ -4,18 +4,22 @@ class ProfileSection extends Component {
     constructor(){
         super()
         this.state = {
-            name:""
+            name:"",
+            isLoading:true
         }
     }
     componentWillReceiveProps(nextProps) {
         console.log(nextProps)
-        this.setState({...this.state, name: nextProps.name });  
+        this.setState({...this.state, name: nextProps.name,isLoading:false });  
       }
     render() {
         return (<span>
             <div class="section profile-heading" style={{background:'white'}}>
         <div class="columns is-mobile is-multiline">
+            
+        {this.state.isLoading === true ? <progress class="progress is-small is-primary" max="100">15%</progress>:''}
           <div class="column is-2">
+              
             <span class="header-icon user-profile-image">
               <img style={{borderRadius:"50%"}} src="https://static.wixstatic.com/media/27f7a3_4944f48a919d4e028e9d8153fe314c68~mv2.jpg/v1/fill/w_140,h_140,al_c,q_80,usm_0.66_1.00_0.01/73281629_727938637673237_203890694347659.webp"/>
             </span> 

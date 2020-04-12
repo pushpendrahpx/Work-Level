@@ -10,7 +10,8 @@ class Profile extends Component {
         
         this.state = {
             searchFor:email,
-            user:{}
+            user:{},
+            isLoading:false
         }
     }
     makeAPIrequest = async (url,data)=>{
@@ -27,19 +28,23 @@ class Profile extends Component {
         return result;
     }
     async componentDidMount(){
+        
         let url = 'http://localhost:5000/api/Employee/'+this.state.searchFor;
         let response = await this.makeAPIrequest(url,{});
         console.log(response)
         this.setState({
-            user:response
+            user:response,
+            isLoading:true
         })
     }
 
     render() {
-        return (<div class="columns">
+            return (<div class="columns">
         <div class="container profile">
          
+          <div style={{display:this.state.isLoading === false ? 'block':'none'}} className='goingtohide'>
           
+          </div>
         <ProfileSection name={this.state.user.name} />
         <SearchInProfile />
           <div class="columns is-mobile">
@@ -134,7 +139,8 @@ class Profile extends Component {
       </div>
       
         )
-    }
+        }
+    
 }
 
 export default Profile

@@ -36,3 +36,6 @@ body {
     padding: 20px;
     background-color: #F1F1F1;
   }
+.goingtohide{
+    transition-duration: 0.2s;
+}

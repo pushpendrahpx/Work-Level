@@ -106,7 +106,7 @@ router.post('/search/:query',(req,res)=>{
         var regexQuery = {
             name: new RegExp(query, 'i')
           }
-        EmployeeModel.find(regexQuery,{password:0,_id:0,__v:0}).limit(20).exec((err,docs)=>{
+        EmployeeModel.find(regexQuery,{password:0,__v:0}).limit(20).exec((err,docs)=>{
             
             res.status(200).json(docs)
         })

@@ -5,6 +5,9 @@ import RightWidgets from './HomeComponents/RightWidgets'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import HomeCentral from './HomeComponents/HomeCentral'
 import HomeAddEmployees from './HomeComponents/HomeAddEmployees'
+import socketIOClient from "socket.io-client";
+
+
 export default class Home extends Component{
     constructor(props){
         super(props)
@@ -14,8 +17,15 @@ export default class Home extends Component{
             isLoggedIn:true
         }
 
+        
+
     }
     componentDidMount(){
+        // Installing Sockets Rules for Clients
+        this.socket = socketIOClient("http://localhost:5000");
+
+        // this.socket.on('notifications',)
+
 
         if(localStorage.getItem("isLoggedIn") === "true"){
             let CompanyInString = localStorage.getItem("CompanyDetails");
@@ -33,10 +43,15 @@ export default class Home extends Component{
         if(this.state.isLoggedIn){
             return <span><BrowserRouter>
             <HomeNavbar />
-            <span>              
+            <span>         
+                    
                   <div className='columns'>
                 <div className='is-narrow'>
                     <div className='box'>
+                    {/* <button onClick={()=>{
+                    
+                    this.socket.emit('logged',{name:"PpopiuPushpendra"})
+                            }}>dsf</button>  */}
                     <HomeLeftActionBar />
                     </div>
                 </div>  

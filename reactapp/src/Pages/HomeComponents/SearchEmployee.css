@@ -1,0 +1,7 @@
+.EmployeeBox:hover{
+    background: #dedede;
+    transition-duration: 0.1s;
+}
+.EmployeeBox:active{
+    border: 1px solid teal;
+}
